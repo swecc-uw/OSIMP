@@ -1,6 +1,7 @@
 import os
-from datetime import datetime
-from constants import ID_FILE, ITEMS_FILE, RESPONSES_FILE, PAIRS_FILE
+import json
+from datetime import datetime, timedelta
+from constants import ID_FILE, ITEMS_FILE, RESPONSES_FILE, PAIRS_FILE, EMAIL_SECRETS_FILE
 from person import Person
 
 
@@ -43,9 +44,15 @@ def get_last_n_pairings(n) -> list[list[tuple[Person, Person]]]:
 
     return out
 
-def get_prev_pairings() -> list[tuple[Person, Person]]:
+def get_all_prev_pairings() -> list[tuple[Person, Person]]:
     num_prev = get_num_records(PAIRS_FILE)
     return get_last_n_pairings(num_prev)
+
+def get_last_pairings() -> list[tuple[Person, Person]]:
+    if get_num_records(PAIRS_FILE) == 0:
+        return None
+
+    return get_last_n_pairings(1)[0]
 
 def write_id_to_file(id, week_str):
     with open(ID_FILE, "a") as f:
@@ -92,7 +99,7 @@ def write_pairs_to_file(pairs: list[tuple[Person, Person]]):
 
 def get_week_str():
     # this monday
-    this_week = datetime.datetime.today() - datetime.timedelta(days=datetime.datetime.today().weekday())
+    this_week = datetime.today() - timedelta(days=datetime.today().weekday())
     # format as MM/DD
     return this_week.strftime("%m/%d")
 
@@ -102,3 +109,11 @@ def get_num_records(file_path):
 
     with open(file_path, "r") as file:
         return len(file.readlines())
+
+def get_email_secret():
+    with open(EMAIL_SECRETS_FILE, "r") as file:
+        return json.load(file).get("secret")
+
+def get_email_endpoint():
+    with open(EMAIL_SECRETS_FILE, "r") as file:
+        return json.load(file).get("endpoint")

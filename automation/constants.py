@@ -3,9 +3,10 @@ ID_FILE = "form_ids.txt"
 ITEMS_FILE = "items.txt"
 RESPONSES_FILE = "responses.txt"
 PAIRS_FILE = "pairs.txt"
+CLIENT_SECRETS_FILE = "credentials.json"
+EMAIL_SECRETS_FILE = "email_credentials.json"
 
 # constants for Google API
-CLIENT_SECRETS_FILE = "credentials.json"
 SCOPES = [
     "https://www.googleapis.com/auth/forms.body",
     "https://www.googleapis.com/auth/drive.file",

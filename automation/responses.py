@@ -3,7 +3,7 @@ import json
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from person import Person
-from util import get_last_entry, get_last_form_id, get_last_form_item_dict, write_responses_to_file, get_last_responses
+from logutil import read_last_entry, get_last_form_id, read_last_item_dict, write_responses, read_last_responses
 from constants import CLIENT_SECRETS_FILE, SCOPES, API_SERVICE_NAME, API_VERSION
 
 
@@ -40,7 +40,7 @@ def parse_responses(responses):
     if not responses:
         return None
 
-    item_dict = get_last_form_item_dict()
+    item_dict = read_last_item_dict()
     people = [parse_response(x, item_dict) for x in responses]
     return people
 
@@ -49,5 +49,5 @@ def get_responses() -> list[Person]:
 
 if __name__ == "__main__":
     responses = get_responses()
-    write_responses_to_file(responses)
+    write_responses(responses)
     print("wrote responses to file")

@@ -1,4 +1,4 @@
-from util import get_all_prev_pairings, write_pairs_to_file, get_last_responses
+from logutil import read_all_prev_pairings, write_pairs, read_last_responses
 from person import Person
 
 
@@ -13,7 +13,7 @@ def does_pair_exist(p1: Person, p2: Person, prev_pairings: list[list[tuple[Perso
 
 def pair(people: list[Person]) -> list[tuple[Person, Person]]:
 
-    prev_pairs = get_all_prev_pairings()
+    prev_pairs = read_all_prev_pairings()
     paired = set()
 
     if prev_pairs is None:
@@ -41,9 +41,9 @@ def pair(people: list[Person]) -> list[tuple[Person, Person]]:
     return out
 
 if __name__ == "__main__":
-    people = get_last_responses()
+    people = read_last_responses()
     pairs = pair(people)
     print('pair result', pairs)
-    write_pairs_to_file(pairs)
+    write_pairs(pairs)
     print("wrote pairs to file")
 

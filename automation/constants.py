@@ -1,10 +1,15 @@
 # file paths
-ID_FILE = "form_ids.txt"
-ITEMS_FILE = "items.txt"
-RESPONSES_FILE = "responses.txt"
-PAIRS_FILE = "pairs.txt"
 CLIENT_SECRETS_FILE = "credentials.json"
-EMAIL_SECRETS_FILE = "email_credentials.json"
+EMAIL_SECRETS_FILE  =  "email_credentials.json"
+
+LOG_DIR = "logs"
+
+ID_FILE        = LOG_DIR + "/form_ids.txt"
+ITEMS_FILE     = LOG_DIR + "/items.txt"
+RESPONSES_FILE = LOG_DIR + "/responses.txt"
+PAIRS_FILE     = LOG_DIR + "/pairs.txt"
+PROBLEMS_FILE  = LOG_DIR + "/problems.txt"
+
 
 # constants for Google API
 SCOPES = [
@@ -16,8 +21,8 @@ SCOPES = [
 API_SERVICE_NAME = "forms"
 API_VERSION = "v1"
 
-# form templates
 
+# form templates
 def NEW_FORM(date):
     return {
         "info": {

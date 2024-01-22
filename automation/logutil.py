@@ -54,7 +54,17 @@ def read_all_prev_pairings() -> list[tuple[Person, Person]]:
     return read_last_n_pairings(num_prev)
 
 def read_last_pairing() -> list[tuple[Person, Person]]:
-    return None if get_num_records(PAIRS_FILE) == 0 else read_last_n_pairings(1)[0]
+    line = read_last_entry(PAIRS_FILE)
+    if line is None:
+        return None
+
+    out = []
+    pairs_raw = line.strip().split("; ")
+    for pair in pairs_raw:
+        p1, p2 = pair.split(" - ")
+        out.append((Person(*p1[1:].split(", ")), Person(*p2[1:].split(", "))))
+
+    return out
 
 def write_form_id(id, week_str):
     with open(ID_FILE, "a") as f:
@@ -109,8 +119,8 @@ def write_pairs(pairs: list[tuple[Person, Person]]):
             f.write("\n")
 
 def get_week_str():
-    # this monday
-    this_week = datetime.today() - timedelta(days=datetime.today().weekday())
+    # next monday
+    this_week = datetime.now() + timedelta(days=7 - datetime.now().weekday())
     # format as MM/DD
     return this_week.strftime("%m/%d")
 

@@ -13,14 +13,14 @@ def EMAIL(recip: Person, partner: Person, problem_link: str) -> str:
         f"<p>Email: {partner.email}</p>"
         f"<p>Discord: {partner.discord}</p>"
         f"<p>"
-            f"This week's topic will be <b>Heaps/Priority Queues</b>. You'll want to be very comfortable using the API in your language of choice. Check out these resources to learn more:"
+            f"This week we will be doing problems that require <b>graph traversal</b> and <b>memoization</b>. Memoization is a very powerful pattern that can be used on a wide variety of problems. You'll want to be comfortable doing a DFS/BFS on both adjacency list and grid representations of graphs, as well as any data structures you choose for saving the intermediate results of sub-problems. Check out these resources to learn more:"
         f"</p>"
         f"<ul>"
-        f"<li><a href='https://www.geeksforgeeks.org/minimum-operations-required-to-make-every-element-greater-than-or-equal-to-k/'>A practical example problem</a></li>"
-        f"<li><a href='https://en.wikipedia.org/wiki/Heap_(data_structure)'>Theory/implementation details</a></li>"
-        f"<li><a href='https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html'>Java PriorityQueue</a></li>"
-        f"<li><a href='https://docs.python.org/3/library/heapq.html'>Python heapq</a></li>"
+        f"<li><a href='https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/'>DFS for adj list</a></li>"
+        f"<li><a href='https://www.geeksforgeeks.org/depth-first-traversal-dfs-on-a-2d-array/'>DFS for 2D grid</a></li>"
+        f"<li><a href='https://www.geeksforgeeks.org/what-is-memoization-a-complete-tutorial/'>Overview of memoization</a></li>"
         f"</ul>"
+        f"<p>It's worth mentioning that this week's problems are intentionally a step up in difficulty from previous weeks. If you're struggling to understand your assigned question, feel free to reach out to me (Elijah) over discord (elimelt)."
         f"<p>Best,</p>"
         f"<p>SWECC Leadership</p>"
         f"</body>"
@@ -63,12 +63,18 @@ def send(email: str, content: str):
 def send_emails(pairs: list[tuple[Person, Person]], plink_1, plink_2):
     for email, content in generate_emails(pairs, plink_1, plink_2).items():
         send(email, content)
+        print("========================================================")
+        print(f"Sent email to {email}")
+        print(content)
+        print("========================================================")
 
 
 if __name__ == "__main__":
+
+
     # pair = [(
     #     Person("A_name", "elimelt@uw.edu", "A_discord"),
-    #     Person("B_name", "elimelt@uw.edu", "B_discord"),
+    #     Person("B_name", "elimelt@cs.washington.edu", "B_discord"),
     # )]
 
     # for email, content in generate_emails(pair, "plink_1", "plink_2").items():
@@ -92,5 +98,5 @@ if __name__ == "__main__":
 
     send_emails(pairs, plink_1, plink_2)
 
-    # https://leetcode.com/problems/merge-k-sorted-lists/description/
-    # https://leetcode.com/problems/top-k-frequent-elements/description/
+    # https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+    # https://leetcode.com/problems/evaluate-division/

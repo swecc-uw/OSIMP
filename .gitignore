@@ -4,3 +4,8 @@ email_credentials.json
 __pycache__/*
 __pycache__/
 __pycache__/constants.cpython-311.pyc
+
+
+.env
+
+deprecated/*

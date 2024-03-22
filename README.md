@@ -1,26 +1,42 @@
-# Official Repository for the Official Software Engineering Career Club Mock Interview Program
+# OSIMP Server
 
 ## What is this?
 
-A collection of scripts that help manage the mock interview program. In particular, the following tasks are supported:
-
-- Creating a new sign-up form
-- Reading the responses from a sign-up form
-- Creating pairs of interviewers and interviewees
-- Sending emails to interviewers and interviewees
+A server meant to be maintained by the mock interview program manager. It will convienently handle the pairing of people that signed up for the mock interview program, writing them to both a database and local file cache.
 
 ## How do I run?
 
-First, you need credentials to access the forms API. If you are a member of SWECC and want to contribute, please contact me (Elijah Melton) and I'll get you set up.
+### Change directory to the server folder:
 
-Name your file `credentials.json` and place it in `./automation`. You should be able to do all the forms API stuff now.
+```bash
+cd server
+```
 
-To send emails, you'll need an additional secret file. Again, contact me (Elijah Melton) if you need this.
+### Install dependencies:
 
-| Command | Description |
-| --- | --- |
-| `python3 create.py` | Create a new sign-up form |
-| `python3 responses.py` | Read the responses from a sign-up form |
-| `python3 pairs.py` | Create pairs of interviewers and interviewees |
-| `python3 send.py` | Send emails to interviewers and interviewees |
+```bash
+pip3 install -r requirements.txt
+```
 
+### Create a `.env` file with the following contents:
+
+```bash
+PAIRING_SECRET=your_secret
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+```
+
+### Run the following commands:
+
+```bash
+python3 server.py
+```
+
+## Endpoints
+
+| Path | Method | Parameters | Response | Description |
+| --- | --- | --- | --- | --- |
+| `/startjob` | POST | `secret` | `200` | Start the pairing job |
+| `/status` | GET | none | `200` | Get the status of the pairing job |
+| `/pairs` | GET | none | `200` | Get the pairs, or notify of cache miss |
+| `/unpaired` | GET | none | `200` | Get the unpaired, or notify of cache miss |

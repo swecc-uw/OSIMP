@@ -34,4 +34,4 @@ python3 server.py
 
 ## Endpoints
 
-Visit (http://0.0.0.0:8080/docs)[docs] while your local server is running.
+Visit [http://0.0.0.0:8080/docs](docs) while your local server is running.

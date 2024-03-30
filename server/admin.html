@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Client</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  form {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<h1>User IDs</h1>
+<ul id="userIds"></ul>
+
+<form id="emailForm">
+  <label for="email">Enter Email:</label><br>
+  <textarea id="email" name="email" rows="4" cols="50"></textarea><br>
+  <button type="submit">Send Email</button>
+</form>
+
+<script>
+
+  // on page load, fetch unpaired user IDs from the server
+  fetch('http://localhost:8080/unpaired')
+    .then(response => response.json())
+    .then(data => {
+      const unpaired = data.unpaired.map(u => u.user_id);
+      const userIds = document.getElementById('userIds');
+
+      // Display unpaired user IDs on the page
+      unpaired.forEach(userId => {
+        const li = document.createElement('li');
+        li.textContent = userId;
+        userIds.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching user IDs:', error);
+    });
+
+  // Function to handle form submission
+  document.getElementById('emailForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    const email = document.getElementById('email').value.trim(); // Get the entered email
+
+    // Fetch unpaired user IDs from the server
+    fetch('http://localhost:8080/unpaired')
+      .then(response => response.json())
+      .then(data => {
+
+        const unpaired = data.unpaired.map(u => u.user_id);
+
+        console.log(JSON.stringify({ content: email, user_ids: unpaired }))
+        // Send POST request to /email endpoint with unpaired user IDs and entered email
+        fetch('http://localhost:8080/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ content: email, user_ids: unpaired })
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Email sent:', data.message);
+        })
+        .catch(error => {
+          console.error('Error sending email:', error);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching user IDs:', error);
+      });
+  });
+</script>
+</body>
+</html>

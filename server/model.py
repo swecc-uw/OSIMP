@@ -30,3 +30,21 @@ class FormRecord:
 
     def __str__(self):
         return json.dumps(self.__dict__)
+
+@dataclass
+class EmailRequest:
+    paired_content: str
+    unpaired_content: str
+    paired_subject: str
+    unpaired_subject: str
+    resend: bool
+
+@dataclass
+class TestEmailRequest:
+    paired_content: str
+    unpaired_content: str
+    paired_subject: str
+    unpaired_subject: str
+    resend: bool
+    email_unpaired: str
+    email_paired: str

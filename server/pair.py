@@ -56,7 +56,7 @@ def pair_signups(signups: List[SignupRecord]) -> Tuple[List[Tuple[str, str]], Li
     for i in range(len(signups)):
         for j in range(len(signups)):
             F_time[i, j] = f(availabilities[i], availabilities[j])
-            F_valid[i, j] = 1 if i != j else 0#and F_time[i, j] != 0 else 0
+            F_valid[i, j] = 1 if i != j and F_time[i, j] != 0 else 0
 
     unpairable = set()
     for i, Fvr in enumerate(F_valid):
@@ -79,7 +79,7 @@ import datetime
 def generate_realistic_availability(sparse_probability: float = 0.3) -> List[List[int]]:
     availability = np.zeros((7, 24), dtype=int)
 
-    # Set availability for typical working hours (e.g., 9 AM to 5 PM)
+    # typical working hours (9 AM - 5 PM)
     runlen = int(random.random() * 5) + 1
     for day in range(5):  # Monday to Friday
         for hour in range(9, 17):  # 9 AM to 5 PM
@@ -90,13 +90,13 @@ def generate_realistic_availability(sparse_probability: float = 0.3) -> List[Lis
                 availability[day][hour] = 0
                 runlen = int(random.random() * 5) + 1
 
-    # Randomly set availability for weekends
+    # randomly set availability for weekends
     for day in range(5, 7):  # Saturday and Sunday
         for hour in range(24):  # 24 hours
             if (
                 random.random() < sparse_probability
-            ):  # Adjust probability for sparse availability
-                availability[day][hour] = 1  # Available
+            ):
+                availability[day][hour] = 1
 
     return availability.tolist()  # Convert NumPy array to list
 

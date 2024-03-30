@@ -5,6 +5,7 @@ import TestEmailForm from './components/TestEmailForm.js';
 import EmailForm from './components/EmailForm.js';
 import ViewForms from './components/ViewForms.js';
 import ServerMonitor from './components/ServerMonitor.js';
+import ProblemForms from './components/ProblemForms.js';
 const host = "http://0.0.0.0";
 const port = 8080;
 // const scriptSecret = "abc123";
@@ -16,6 +17,7 @@ export const local_endpoints = {
   unpaired: `${host}:${port}/unpaired`,
   paired: `${host}:${port}/pairs`,
   status: `${host}:${port}/status`,
+  problems: `${host}:${port}/forms/problems`,
 }
 
 const SendEmails = () => {
@@ -55,14 +57,21 @@ const Navbar = () => {
         <li>
           <Link to="/forms">Forms</Link>
         </li>
+        <li>
+          <Link to="/problems">Problems</Link>
+        </li>
       </ul>
     </nav>
   )
 }
 
+const Problems = () => {
+  return (
+    <ProblemForms endpoint={local_endpoints.problems}/>
+  );
+}
+
 function App() {
-
-
   return (
     <div className="App">
       <Navbar />
@@ -70,6 +79,7 @@ function App() {
         <Route path="/emails" element={<SendEmails/>} />
         <Route path="/forms" element={<Forms/>} />
         <Route path="/" element={<Monitor/>} />
+        <Route path="/problems" element={<Problems/>} />
       </Routes>
     </div>
   )

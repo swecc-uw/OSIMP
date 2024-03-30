@@ -6,10 +6,11 @@ from typing import List
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 import dotenv
+import postgrest
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from job import main
-from model import EmailRequest, TestEmailRequest
+from model import EmailRequest, Problem, TestEmailRequest
 from email_notifacation import send, get_emails_to_send_for_form
 from crud import (
     get_interiew_form_id,
@@ -18,7 +19,9 @@ from crud import (
     get_pairings_for_form,
     get_unpaired_for_form,
     get_emails_for_ids,
-    get_all_form_ids
+    get_all_form_ids,
+    upload_problem,
+    get_problems_for_form
 )
 
 # Global variables to store status and result
@@ -216,6 +219,19 @@ def test_email(req: TestEmailRequest):
 @app.get("/forms")
 def get_forms():
     return {"forms": get_all_form_ids()}
+
+@app.get("/forms/problems/{form_id}")
+def fetch_problems_for_form(form_id: int):
+    problems = get_problems_for_form(form_id)
+    return {"problems": problems}
+
+@app.post("/forms/problems")
+def upload_problem_for_form(prob: Problem):
+    try:
+        upload_problem(prob)
+    except postgrest.exceptions.APIError as e:
+        return {"message": str(e)}
+    return {"message": "Problem uploaded"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080)

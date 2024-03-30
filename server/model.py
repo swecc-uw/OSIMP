@@ -39,6 +39,9 @@ class EmailRequest:
     unpaired_subject: str
     resend: bool
 
+    def __str__(self):
+        return json.dumps(self.__dict__)
+
 @dataclass
 class TestEmailRequest:
     paired_content: str
@@ -48,3 +51,17 @@ class TestEmailRequest:
     resend: bool
     email_unpaired: str
     email_paired: str
+
+    def __str__(self):
+        return json.dumps(self.__dict__)
+
+@dataclass
+class Problem:
+    problem_url: str
+    problem_number: int
+    seq: int
+    form_id: int
+    topic: str
+
+    def __str__(self):
+        return json.dumps(self.__dict__)

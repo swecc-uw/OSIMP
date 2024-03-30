@@ -2,7 +2,7 @@ import os
 import logging
 import dataclasses
 import uuid
-from model import EmailRequest, SignupRecord, PairRecord
+from model import EmailRequest, Problem, SignupRecord, PairRecord
 from typing import List
 from supabase import create_client, Client
 import dotenv
@@ -128,6 +128,22 @@ def add_sent_emails(form_id: int, user_ids: List[str], content: str, subject: st
 def get_all_form_ids() -> List[int]:
     res = supabase.table("forms").select("id").execute()
     return [r["id"] for r in res.data]
+
+def upload_problem(problem1: Problem) -> None:
+    supabase.table("problems").insert(dataclasses.asdict(problem1)).execute()
+
+def get_problems_for_form(form_id: int) -> List[Problem]:
+    res = supabase.table("problems").select("*").eq("form_id", form_id).execute()
+    print(res)
+
+    return [
+        Problem(
+            problem_url=r["problem_url"],
+            problem_number=r["problem_number"],
+            form_id=r["form_id"],
+            seq=r["seq"],
+            topic=r["topic"]
+        ) for r in res.data]
 
 def main():
     fid = get_active_form_id()

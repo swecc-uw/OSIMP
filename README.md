@@ -34,9 +34,4 @@ python3 server.py
 
 ## Endpoints
 
-| Path | Method | Parameters | Response | Description |
-| --- | --- | --- | --- | --- |
-| `/startjob` | POST | `secret` | `200` | Start the pairing job |
-| `/status` | GET | none | `200` | Get the status of the pairing job |
-| `/pairs` | GET | none | `200` | Get the pairs, or notify of cache miss |
-| `/unpaired` | GET | none | `200` | Get the unpaired, or notify of cache miss |
+Visit (http://0.0.0.0:8080/docs)[docs] while your local server is running.

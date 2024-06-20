@@ -1,4 +1,7 @@
 *.txt
+!requirements.txt
+
+
 credentials.json
 email_credentials.json
 __pycache__/*

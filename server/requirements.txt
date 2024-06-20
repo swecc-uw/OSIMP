@@ -1,0 +1,6 @@
+numpy
+supabase
+dotenv
+fastapi
+uvicorn
+postgrest

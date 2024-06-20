@@ -90,7 +90,6 @@ app.add_middleware(
 dotenv.load_dotenv()
 SCRIPT_SECRET = os.getenv("SCRIPT_SECRET")
 
-
 @app.get("/")
 def serve_html():
     file = "admin.html"

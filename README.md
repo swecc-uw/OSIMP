@@ -18,20 +18,15 @@ cd server
 pip3 install -r requirements.txt
 ```
 
-### Create a `.env` file with the following contents:
+### Create a `.env` file using `.env.sample` file
 
-```bash
-PAIRING_SECRET=your_secret
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_key
-```
+### Set up database from `migration/setup_db.sql`
 
 ### Run the following commands:
-
 ```bash
 python3 server.py
 ```
 
 ## Endpoints
 
-Visit [docs](http://0.0.0.0:8080/docs) while your local server is running.
+Visit [docs](http://localhost:8080/docs) while your local server is running.

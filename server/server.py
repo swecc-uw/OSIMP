@@ -79,6 +79,8 @@ origins = [
     "http://localhost:5173",
 ]
 
+print("testing")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -89,7 +91,6 @@ app.add_middleware(
 
 dotenv.load_dotenv()
 SCRIPT_SECRET = os.getenv("SCRIPT_SECRET")
-
 
 @app.get("/")
 def serve_html():

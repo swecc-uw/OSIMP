@@ -79,8 +79,6 @@ origins = [
     "http://localhost:5173",
 ]
 
-print("testing")
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

@@ -1,4 +1,4 @@
-# OSIMP Server
+# OSIMP Server (archived)
 
 ## What is this?
 
